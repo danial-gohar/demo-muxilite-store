@@ -24,12 +24,22 @@ module.exports = defineConfig({
       resolve: "@medusajs/medusa/cache-redis",
       options: {
         redisUrl: process.env.REDIS_URL,
+        redisOptions: {
+        tls: {
+          rejectUnauthorized: false
+        }
+      } 
       },
     },
     {
       resolve: "@medusajs/medusa/event-bus-redis",
       options: {
         redisUrl: process.env.REDIS_URL,
+        redisOptions: {
+        tls: {
+          rejectUnauthorized: false
+        }
+      }
       },
     },
     {
@@ -37,6 +47,9 @@ module.exports = defineConfig({
       options: {
         redis: {
           url: process.env.REDIS_URL,
+          tls: {
+          rejectUnauthorized: false
+        }
         },
       },
     },
