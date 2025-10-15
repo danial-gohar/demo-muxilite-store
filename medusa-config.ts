@@ -8,9 +8,9 @@ module.exports = defineConfig({
     redisUrl: process.env.REDIS_URL,
     workerMode: process.env.MEDUSA_WORKER_MODE as "shared" | "worker" | "server",
     http: {
-      storeCors: process.env.STORE_CORS || "http://localhost:8000,http://localhost:3000",
-      adminCors: process.env.ADMIN_CORS || "http://localhost:7001,http://localhost:7000",
-      authCors: process.env.AUTH_CORS || "http://localhost:9000",
+      storeCors: process.env.STORE_CORS || "http://localhost:8000,https://docs.medusajs.com",
+      adminCors: process.env.ADMIN_CORS || "http://localhost:5173,http://localhost:9000,https://docs.medusajs.com",
+      authCors: process.env.AUTH_CORS || "http://localhost:5173,http://localhost:9000,https://docs.medusajs.com",
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
