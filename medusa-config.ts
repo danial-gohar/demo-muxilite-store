@@ -29,19 +29,13 @@ module.exports = defineConfig({
           rejectUnauthorized: false
         },
         connectTimeout: 20000,
-          keepAlive: 30000,
-          maxRetriesPerRequest: 3,
-          enableReadyCheck: true,
+          maxRetriesPerRequest: null,
+          enableReadyCheck: false,
           retryStrategy(times) {
-            const delay = Math.min(times * 50, 2000);
-            return delay;
-          },
-          reconnectOnError(err) {
-            const targetError = 'READONLY';
-            if (err.message.includes(targetError)) {
-              return true;
+            if (times > 3) {
+              return null;
             }
-            return false;
+            return Math.min(times * 50, 2000);
           }
         } 
       },
@@ -55,12 +49,13 @@ module.exports = defineConfig({
           rejectUnauthorized: false
         },
         connectTimeout: 20000,
-          keepAlive: 30000,
-          maxRetriesPerRequest: 3,
-          enableReadyCheck: true,
+          maxRetriesPerRequest: null,
+          enableReadyCheck: false,
           retryStrategy(times) {
-            const delay = Math.min(times * 50, 2000);
-            return delay;
+            if (times > 3) {
+              return null;
+            }
+            return Math.min(times * 50, 2000);
           }
         }
       },
@@ -74,12 +69,13 @@ module.exports = defineConfig({
           rejectUnauthorized: false
           },
           connectTimeout: 20000,
-          keepAlive: 30000,
-          maxRetriesPerRequest: 3,
-          enableReadyCheck: true,
+          maxRetriesPerRequest: null, // CRITICAL: Must be null for BullMQ
+          enableReadyCheck: false,
           retryStrategy(times) {
-            const delay = Math.min(times * 50, 2000);
-            return delay;
+            if (times > 3) {
+              return null;
+            }
+            return Math.min(times * 50, 2000);
           }
         },
       },
