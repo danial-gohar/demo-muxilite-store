@@ -65,17 +65,19 @@ module.exports = defineConfig({
       options: {
         redis: {
           url: process.env.REDIS_URL,
-          tls: {
-          rejectUnauthorized: false
-          },
-          connectTimeout: 20000,
-          maxRetriesPerRequest: null, // CRITICAL: Must be null for BullMQ
-          enableReadyCheck: false,
-          retryStrategy(times) {
-            if (times > 3) {
-              return null;
+          redisOptions: {
+            tls: {
+              rejectUnauthorized: false
+            },
+            connectTimeout: 20000,
+            maxRetriesPerRequest: null, // CRITICAL: Must be null for BullMQ
+            enableReadyCheck: false,
+            retryStrategy(times) {
+              if (times > 3) {
+                return null;
+              }
+              return Math.min(times * 50, 2000);
             }
-            return Math.min(times * 50, 2000);
           }
         },
       },
